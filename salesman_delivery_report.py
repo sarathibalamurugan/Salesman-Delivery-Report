@@ -43,7 +43,6 @@ class SalesmanDeliveryReport:
             "total": "Total"
         }
     
-        # Flattened loop through months using a while loop
         y, m = from_year, from_month
         while (y < to_year) or (y == to_year and m <= to_month):
             month_label = f"{y}-{str(m).zfill(2)}"
@@ -92,7 +91,6 @@ class SalesmanDeliveryReport:
 
         
 
-        # Step 1: Generate month labels
         month_labels = []
         y, m = from_date.year, from_date.month
         while (y < to_date.year) or (y == to_date.year and m <= to_date.month):
@@ -104,7 +102,6 @@ class SalesmanDeliveryReport:
 
         statuses = ["on_time", "within_4_days", "delayed", "total"]
 
-        # Step 2: Fetch actual data
         delivery_data = frappe.db.sql("""
             SELECT
                 st.sales_person,
@@ -150,7 +147,6 @@ class SalesmanDeliveryReport:
             summary[sp][f"{label}_{status}"] = summary[sp].get(f"{label}_{status}", 0) + 1
             summary[sp][f"{label}_total"] = summary[sp].get(f"{label}_total", 0) + 1
 
-        # Step 3: Build final rows
         result = []
         for sp in all_salespersons:
             row = {"sales_person": sp}
@@ -174,8 +170,6 @@ class SalesmanDeliveryReport:
                     elif status == "delayed":
                         total_delayed += value
                     
-
-            # Add summary columns
             row["total_on_time"] = total_ontime
             row["total_within_4_days"] = total_within_4
             row["total_delayed"] = total_delayed
