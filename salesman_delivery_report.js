@@ -2,7 +2,7 @@
 // For license information, please see license.txt
 
 let today = new Date();
-let currentMonthIndex = today.getMonth(); // 0-based index
+let currentMonthIndex = today.getMonth(); 
 let currentMonthName = [
     "January", "February", "March", "April", "May", "June",
     "July", "August", "September", "October", "November", "December"
